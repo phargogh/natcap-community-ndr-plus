@@ -42,6 +42,16 @@ A workable solution should include a process for an InVEST-like model to be
 developed completely independently of the InVEST release cycle, yet be
 accessible to research science staff via an InVEST-style interface.
 
+### Out of Scope: Possible future directions
+
+One pipe dream I have is to allow InVEST models to have a plugin interface
+such that someone opens the InVEST workbench and is able to reliably load
+a model that's maintained completely independently from NatCap.  In practice,
+the dependency management required to make this a workable developer
+experience (particularly in the world of scientific software, where a program
+might not be maintained past the end of a grant) could be really challenging
+in a desktop environment without a docker-style form of runtime encapsulation.
+
 ## Proposed solution
 
 `natcap.invest.community` namespace package.
@@ -49,3 +59,14 @@ accessible to research science staff via an InVEST-style interface.
 Consequential requirements:
 
 * Reasonable standardization and version control of accepted interfaces.
+* Reasonable standardization and version control of accepted packages.
+  In practice, this will probably mean tighter control over API changes
+  across pygeoprocessing and InVEST, probably taskgraph too.
+* The model's entry point is written in python as a namespace package
+* Model package names must necessarily be unique
+* Although the entrypoint itself must be a python package, the core
+  of the model could be a docker container or something like that ...
+  provided that the user (or UI, I suppose) is responsible for that
+  environment (e.g. having docker installed and online).
+
+
